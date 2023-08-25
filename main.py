@@ -2,6 +2,7 @@ import logging
 import os
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
+from keyboard_tools import get_keyboard
 
 # Working with .env file and env variables
 load_dotenv("env/config.env")
