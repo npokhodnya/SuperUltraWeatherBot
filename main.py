@@ -1,8 +1,8 @@
 import logging
-import os
 from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher, executor, types
 from keyboard_tools import get_keyboard
+from weather_forecast_tools import *
 
 # Working with .env file and env variables
 load_dotenv("env/config.env")
@@ -20,7 +20,7 @@ dp = Dispatcher(bot)
 async def handle_location(message: types.Message):
     lat = message.location.latitude
     lon = message.location.longitude
-    text = "latitude:  {}\nlongitude: {}".format(lat, lon)
+    text = get_weather(lat, lon)
     await message.answer(text)
 
 
@@ -28,6 +28,7 @@ async def handle_location(message: types.Message):
 async def cmd_help(message: types.Message):
     text = f"Hello, <b>{message.from_user.full_name}</b>! \nClick on the button below to share your location!"
     await message.answer(text, reply_markup=get_keyboard())
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
